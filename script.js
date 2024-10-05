@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
-
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 let time = Date.now()
 let camera, controls, scene, renderer;
 
@@ -129,12 +129,49 @@ function animate() {
 function render() {
     renderer.render(scene,camera)
 }
-function createPlanet(geo0, geo1, geo2, color){
-    let geo, mat
-    geo = new THREE.SphereGeometry(geo0,geo1,geo2)
-    mat = new THREE.MeshBasicMaterial({color: color})
-    const meh = new THREE.Mesh(geo,mat)
-    return meh
+function createPlanet(geo0, geo1, geo2, planet){
+    var planets = {
+        "earth": "LowPolyEarth.glb",
+        "sun": "LowPolyEarth.glb",
+        "mars": "LowPolyEarth.glb",
+        "venus": "LowPolyEarth.glb",
+        "mercury": "LowPolyEarth.glb",
+        "moon": "LowPolyEarth.glb",
+    }
+
+    for (var Key in planets) {
+        if (Key == planet) {
+            let meshName = planets[Key];
+            const loader = new GLTFLoader().setPath("/models/");
+            loader.load(meshName, (gltf) => {
+                const mesh = gltf.scene;
+                mesh.position.set(0,0,0);
+                mesh.scale.set(geo0,geo1,geo2);
+                return mesh;
+            });
+            break;
+        } else {    
+            console.log("Planet not found");
+        }
+    }
+    // let geo, mat
+
+    // const loader = new GLTFLoader().setPath("/models/");
+    // for (var i = 0; i < planets.length; i++) {
+    //     if (planet == planets[i]) {
+    //         let currentPlanet = planets[i];
+    //         let meshName = currentPlanet.model;
+    //         const loader = new GLTFLoader().setPath("/models/");
+    //         loader.load(meshName, (gltf) => {
+    //             const mesh = gltf.scene;
+    //             mesh.position.set(0,0,0);
+    //             mesh.scale.set(geo0,geo1,geo2);
+    //             return mesh
+    //         });
+    //     } else {
+    //         console.log("Planet not found");
+    //     }   
+    // }    
 }
 // // Canvas
 // const canvas = document.querySelector('canvas.webgl')
