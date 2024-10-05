@@ -1,9 +1,8 @@
 import * as THREE from 'three'
-import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { shader } from 'three/examples/jsm/nodes/Nodes.js';
 let camera, controls, scene, renderer;
-
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 scene = new THREE.Scene();
 
 renderer = new THREE.WebGLRenderer( { antialias: true } )
@@ -33,7 +32,14 @@ controls.maxPolarAngle = Math.PI / 2
 const Earfgeometry = new THREE.SphereGeometry(4,22,10)
 const Earfmaterial = new THREE.MeshBasicMaterial({color:0x0000FF})
 const shpereMesh = new THREE.Mesh(Earfgeometry,Earfmaterial)
-scene.add(shpereMesh)
+const loader = new GLTFLoader().setPath("/models/");
+loader.load('LowPolyEarth.glb', (gltf) => {
+    const mesh = gltf.scene;
+    mesh.position.set(0,0,0);
+    mesh.scale.set(100,100,100);
+    scene.add(mesh);
+});
+// scene.add(shpereMesh)
 
 //stars
 const geometry = new THREE.SphereGeometry(1,22,10)
