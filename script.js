@@ -12,7 +12,7 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setAnimationLoop(animate)
 document.body.appendChild(renderer.domElement)
 
-camera = new THREE.PerspectiveCamera(60, window.innerWidth /window.innerHeight, 1 , 10000)
+camera = new THREE.PerspectiveCamera(60, window.innerWidth /window.innerHeight, 0.1 , 1000)
 camera.position.set(400,50,0)
 
 //Controls
