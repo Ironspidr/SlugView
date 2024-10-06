@@ -3,6 +3,8 @@ import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 let time = Date.now()
 let camera, controls, scene, renderer, plantesMesh;
+var raycaster = new THREE.Raycaster(); // create once
+var mouse = new THREE.Vector2(); // create once
 
 scene = new THREE.Scene();
 
@@ -99,11 +101,38 @@ function tick() {
     renderer.setSize(window.innerWidth, window.innerHeight)
     
     document.body.appendChild(renderer.domElement)
+    // mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    // mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
-    
+    // raycaster.setFromCamera( mouse, camera );
+
+    // var intersects = raycaster.intersectObjects( objects, recursiveFlag );
+
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
+    document.addEventListener('mousemove', onDocumentMouseMove, false); 
+    onDocumentMouseDown()
     //Window
     window.addEventListener('resize', windowResize)
     animate()
+}
+
+function onDocumentMouseDown(event) {
+
+    event.preventDefault();
+
+    mouseYOnMouseDown = event.clientY - windowHalfY;
+    mouseXOnMouseDown = event.clientX - windowHalfX;
+
+    var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
+    vector = vector.unproject(camera);
+
+    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    var intersects = raycaster.intersectObjects(circleObj, true); // Circle element which you want to identify
+
+    if (intersects.length > 0) {
+        alert("Mouse on Circle");
+    }
+
 }
 
 function windowResize() {
@@ -120,7 +149,7 @@ function animate() {
     psuMercury.rotateY(0.01)
     psuVenus.rotateY(0.005)
     psuEarth.rotateY(0.003)
-    earth.rotateY(0.002)
+    earth.rotateY(0.03)
     psuMars.rotateY(0.0025)
     
     
