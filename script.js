@@ -32,7 +32,7 @@ controls.maxPolarAngle = Math.PI / 2
 //sun
 const pointLight = new THREE.PointLight(0xffffff, 2, 5000)
 scene.add(pointLight)
-const sun = createPlanet(8, 22, 10, "yellow")
+const sun = createPlanet(50, 100, 100, "yellow")
 scene.add(sun)
 sun.position.x = 0
 
@@ -41,21 +41,21 @@ const mercury = createPlanet(2, 22, 10, "gray")
 const psuMercury = new THREE.Object3D()
 scene.add(psuMercury)
 psuMercury.add(mercury)
-mercury.position.x = 15
+mercury.position.x = 115
 
 //venus
-const venus = createPlanet(3, 22, 10, "orange")
+const venus = createPlanet(7, 22, 10, "orange")
 const psuVenus = new THREE.Object3D()
 scene.add(psuVenus)
 psuVenus.add(venus)
-venus.position.x = 35
+venus.position.x = 135
 
 //earth
-const earth = createPlanet(3.8, 22, 10, "blue")
+const earth = createPlanet(4, 22, 10, "blue")
 const psuEarth = new THREE.Object3D()
 scene.add(psuEarth)
 psuEarth.add(earth)
-earth.position.x = 65
+earth.position.x = 165
 
 
 //moon
@@ -68,12 +68,41 @@ const mars = createPlanet(3,22,10, "red")
 const psuMars = new THREE.Object3D()
 scene.add(psuMars)
 psuMars.add(mars)
-mars.position.x = 105
+mars.position.x = 305
+
+//jupiter
+const jupiter = createPlanet(15,22,10, "rgba(109,53,24,255)")
+const psuJupiter = new THREE.Object3D()
+scene.add(psuJupiter)
+psuJupiter.add(jupiter)
+jupiter.position.x = 360
+
+//saturn
+const saturn = createPlanet(12.5,22,10, "rgba(211,181,143,255)")
+const psuSaturn = new THREE.Object3D()
+scene.add(psuSaturn)
+psuSaturn.add(saturn)
+saturn.position.x = 520
+
+//uranus
+const uranus = createPlanet(10,22,10, "rgba(155,182,193,255)")
+const psuUranus = new THREE.Object3D()
+scene.add(psuUranus)
+psuUranus.add(uranus)
+uranus.position.x = 580
+
+//neptune
+const neptune = createPlanet(7,22,10, "rgba(102,126,188,255)")
+const psuNeptune = new THREE.Object3D()
+scene.add(psuNeptune)
+psuNeptune.add(neptune)
+neptune.position.x = 620
 
 
-camera.position.x = earth.position.x + 14
-camera.position.y = earth.position.y + 2
-camera.position.z = earth.position.z - 4
+
+camera.position.x = earth.position.x + 814
+camera.position.y = earth.position.y + 802
+camera.position.z = earth.position.z + 804
 
 
 
@@ -149,8 +178,12 @@ function animate() {
     psuMercury.rotateY(0.01)
     psuVenus.rotateY(0.005)
     psuEarth.rotateY(0.003)
+    psuJupiter.rotateY(0.0005)
     earth.rotateY(0.03)
     psuMars.rotateY(0.0025)
+    psuSaturn.rotateY(0.002)
+    psuUranus.rotateY(0.0015)
+    psuNeptune.rotateY(0.001)
     
     
     controls.update()

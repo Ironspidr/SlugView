@@ -3,10 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animations</title>
+    <title>Slugview</title>
+    <meta name="description" content="Slugview. A project made by: Nataniel Jayaseelan, Ethan V. Garcia, and Neha Hingorani, students from UC Santa Cruz, for the 2024 NASA Hackathon Orrery Web App Challenge.">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Object Name</th>
+                <th>Near-Earth Objects (NEO) </th>
+                <th>Potentially Hazardous Objects(PHA) </th>
+                <th>Eccentricity</th>
+                <th>Semi-major axis</th>
+                <th>Orbital Period</th>
+                <th>Orbital ID</th>
+                <!-- Add more headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchData() {
+            const response = await fetch('/sbdb_query_results.csv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1); // Skip the header row
+
+            const tableBody = document.querySelector('#data-table tbody');
+            rows.forEach(row => {
+                const cols = row.split(',');
+                const tr = document.createElement('tr');
+                cols.forEach(col => {
+                    const td = document.createElement('td');
+                    td.textContent = col;
+                    tr.appendChild(td);
+                });
+                tableBody.appendChild(tr);
+            });
+        }
+
+        fetchData();
+    </script>
     <canvas class="webgl"></canvas>
     <script type="module" src="./script.js"></script>
 </body>
